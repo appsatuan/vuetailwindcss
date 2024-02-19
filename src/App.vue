@@ -1,18 +1,16 @@
 <template>
   <div class="app" id="app">
     <Header @open-form="showForm" />
-    <Table :products="products" @delete-product="deleteProduct"  />
+    <Table :products="products" @delete-product="deleteProduct" @reset-page="resetPage" />
     <Form @add-product="addProduct" v-if="showFormFlag" />
   </div>
 </template>
-
 
 <script>
 import Header from './components/Header.vue';
 import Table from './components/Table.vue';
 import Form from './components/Form.vue';
 import axios from 'axios';
-
 
 export default {
   components: {
@@ -23,7 +21,8 @@ export default {
   data() {
     return {
       products: [],
-      showFormFlag: false
+      showFormFlag: false,
+      currentPage: 1 // Add currentPage to keep track of current page
     };
   },
   methods: {
@@ -38,8 +37,9 @@ export default {
     async addProduct(productData) {
       try {
         const response = await axios.post('/products', productData);
-        this.products.push(response.data);
+       // this.products.push(response.data);
         this.showFormFlag = false;
+        await this.fetchData();  // CATATAN : setelah add, fetchData()  again. 
       } catch (error) {
         console.error('Error adding product:', error);
       }
@@ -54,6 +54,9 @@ export default {
     },
     showForm() {
       this.showFormFlag = true;
+    },
+    resetPage() {
+      this.currentPage = 1;
     }
   },
   mounted() {

@@ -6,21 +6,25 @@
   </form>
 </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        title: '',
-        price: ''
-      };
-    },
-    methods: {
-      submitForm() {
-        this.$emit('add-product', { title: this.title, price: this.price });
-        this.title = '';
-        this.price = '';
-      }
+<script>
+export default {
+  data() {
+    return {
+      title: '',
+      price: ''
+    };
+  },
+  methods: {
+    submitForm() {
+      // Emit event to add the product
+      this.$emit('add-product', { title: this.title, price: this.price });
+
+      // Reset form fields
+      this.title = '';
+      this.price = '';
+
+   
     }
   }
-  </script>
-  
+}
+</script>

@@ -33,7 +33,7 @@
     </nav>
   </div>
 </template>
-  
+  <!--
   <script>
   export default {
     props: ['products'],
@@ -73,5 +73,50 @@
     }
   }
   </script>
-  
+-->
+<script>
+export default {
+  props: ['products'],
+  data() {
+    return {
+      currentPage: 1,
+      itemsPerPage: 5 // Change this to adjust the number of items per page
+    };
+  },
+  computed: {
+    displayedProducts() {
+      // Sort products by ID in descending order
+      const sortedProducts = this.products.slice().sort((a, b) => b.id - a.id);
+
+      // Calculate the start and end index for pagination
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+
+      // Return the sliced products
+      return sortedProducts.slice(startIndex, endIndex);
+    },
+    totalPages() {
+      return Math.ceil(this.products.length / this.itemsPerPage);
+    }
+  },
+  methods: {
+    deleteProduct(productId) {
+      this.$emit('delete-product', productId);
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    gotoPage(page) {
+      this.currentPage = page;
+    }
+  }
+}
+</script>
   
