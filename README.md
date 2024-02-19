@@ -1,6 +1,6 @@
 # vuefront
 
-## Project setup
+## Project setup Pertama kali
 ```
 npm install
 ```
