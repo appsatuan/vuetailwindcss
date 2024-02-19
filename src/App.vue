@@ -29,7 +29,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get('http://localhost:8082/products');
+        const response = await axios.get('/products');
         this.products = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -37,7 +37,7 @@ export default {
     },
     async addProduct(productData) {
       try {
-        const response = await axios.post('http://localhost:8082/products', productData);
+        const response = await axios.post('/products', productData);
         this.products.push(response.data);
         this.showFormFlag = false;
       } catch (error) {
@@ -46,7 +46,7 @@ export default {
     },
     async deleteProduct(productId) {
       try {
-        await axios.delete(`http://localhost:8082/products/${productId}`);
+        await axios.delete(`/products/${productId}`);
         this.products = this.products.filter(product => product.id !== productId);
       } catch (error) {
         console.error('Error deleting product:', error);
