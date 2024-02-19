@@ -16,10 +16,7 @@ export default {
   },
   methods: {
     submitForm() {
-      // Emit event to add the product
       this.$emit('add-product', { title: this.title, price: this.price });
-
-      // Reset form fields
       this.title = '';
       this.price = '';
 

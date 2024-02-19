@@ -1,7 +1,7 @@
 <template>
   <div class="app" id="app">
     <Header @open-form="showForm" />
-    <Table :products="products" @delete-product="deleteProduct" @reset-page="resetPage" />
+    <Table :products="products" @delete-product="deleteProduct"/>
     <Form @add-product="addProduct" v-if="showFormFlag" />
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
         const response = await axios.post('/products', productData);
        // this.products.push(response.data);
         this.showFormFlag = false;
-        await this.fetchData();  // CATATAN : setelah add, fetchData()  again. 
+        await this.fetchData();  // CATATAN : setelah add, fetchData()  again.  
       } catch (error) {
         console.error('Error adding product:', error);
       }
@@ -54,9 +54,6 @@ export default {
     },
     showForm() {
       this.showFormFlag = true;
-    },
-    resetPage() {
-      this.currentPage = 1;
     }
   },
   mounted() {
